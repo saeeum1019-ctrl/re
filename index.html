@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Furniro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #b88e2f;
+    --text: #333333;
+    --text-2: #666666;
+    --light-bg: #f4f5f7;
+    --gray-1: #3a3a3a;
+    --gray-2: #616161;
+    --gray-3: #898989;
+    --gray-4: #b0b0b0;
+    --white: #ffffff;
+    --cream: #fff3e3;
+    --cream-bg: #fcf8f3;
+    --page: 1440px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Poppins", sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  ul { list-style: none; }
+  .wrap { width: 100%; max-width: var(--page); margin: 0 auto; position: relative; }
+
+  /* ---------- Header ---------- */
+  .header { background: var(--white); height: 100px; }
+  .header .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 100px 0 54px; }
+  .brand { display: flex; align-items: center; gap: 5px; }
+  .brand__mark { width: 50px; height: 32px; position: relative; overflow: hidden; flex-shrink: 0; }
+  .brand__mark img { position: absolute; width: 154%; height: 240.63%; left: -26%; top: -68.75%; max-width: none; }
+  .brand__name { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 34px; color: #000; }
+  .nav { display: flex; gap: 75px; font-weight: 500; font-size: 16px; color: #000; }
+  .nav a:hover { color: var(--primary); }
+  .actions { display: flex; gap: 45px; }
+  .actions a { width: 28px; height: 28px; display: block; }
+  .actions img { width: 100%; height: 100%; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; height: 716px; background: url("assets/hero-bg.png") center / cover no-repeat; }
+  .hero .wrap { height: 100%; }
+  .hero__card { position: absolute; right: 58px; top: 157px; width: 643px; height: 443px; background: var(--cream); border-radius: 10px; padding: 62px 39px 0; }
+  .hero__eyebrow { font-weight: 600; font-size: 16px; letter-spacing: 3px; color: var(--text); }
+  .hero__title { font-weight: 700; font-size: 52px; line-height: 65px; color: var(--primary); margin-top: 4px; }
+  .hero__text { font-weight: 500; font-size: 18px; line-height: 24px; color: var(--text); margin-top: 17px; max-width: 546px; }
+  .btn { display: inline-block; font-weight: 700; text-transform: uppercase; font-size: 16px; background: var(--primary); color: var(--white); padding: 25px 72px; margin-top: 46px; border: 1px solid var(--primary); transition: background .2s, color .2s; }
+  .btn:hover { background: var(--white); color: var(--primary); }
+
+  /* ---------- Browse the range ---------- */
+  .range { padding-top: 57px; text-align: center; }
+  .range h2 { font-weight: 700; font-size: 32px; color: var(--text); }
+  .range__sub { font-size: 20px; color: var(--text-2); margin-top: 0; }
+  .range__grid { display: grid; grid-template-columns: repeat(3, 381px); gap: 19px; justify-content: center; margin-top: 61px; }
+  .range__item img { width: 381px; height: 480px; object-fit: cover; border-radius: 20px; }
+  .range__item h3 { font-weight: 600; font-size: 24px; color: var(--text); margin-top: 30px; }
+
+  /* ---------- Our products ---------- */
+  .products { padding-top: 66px; text-align: center; }
+  .products h2 { font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--gray-1); }
+  .products__grid { display: grid; grid-template-columns: repeat(4, 285px); gap: 32px; justify-content: center; margin-top: 56px; text-align: left; }
+  .card { position: relative; display: block; width: 285px; height: 446px; background: var(--light-bg); overflow: hidden; cursor: pointer; }
+  .card__img { width: 285px; height: 301px; object-fit: cover; }
+  .card__body { padding: 16px 16px 0; }
+  .card__name { font-weight: 600; font-size: 24px; line-height: 1.2; color: var(--gray-1); }
+  .card__desc { font-weight: 500; font-size: 16px; line-height: 1.5; color: var(--gray-3); margin-top: 8px; }
+  .card__price { display: flex; align-items: center; gap: 16px; margin-top: 8px; font-size: 20px; font-weight: 600; line-height: 1.5; color: var(--gray-1); }
+  .card__price s { font-size: 16px; font-weight: 400; color: var(--gray-4); }
+  .badge { position: absolute; top: 24px; right: 24px; width: 48px; height: 48px; display: grid; place-items: center; color: var(--white); font-weight: 500; font-size: 16px; }
+  .badge img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .badge span { position: relative; }
+  .card__overlay { position: absolute; inset: 0; background: rgba(58,58,58,.72); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 175px; gap: 24px; opacity: 0; transition: opacity .25s; }
+  .card:hover .card__overlay, .card:focus-within .card__overlay { opacity: 1; }
+  .card__cta { width: 202px; height: 48px; background: var(--white); color: var(--primary); font-weight: 600; font-size: 16px; line-height: 48px; text-align: center; border: 0; font-family: inherit; cursor: pointer; }
+  .card__cta:hover { background: var(--primary); color: var(--white); }
+  .card__tools { display: flex; gap: 20px; color: var(--white); font-weight: 600; font-size: 16px; line-height: 1.5; }
+  .card__tools button { display: flex; align-items: center; gap: 2px; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; }
+  .card__tools img { width: 16px; height: 16px; }
+  .card__tools button.is-liked { color: #e97171; }
+  .show-more { display: inline-block; width: 245px; height: 48px; line-height: 46px; margin-top: 32px; border: 1px solid var(--primary); color: var(--primary); font-weight: 600; font-size: 16px; text-align: center; background: var(--white); transition: background .2s, color .2s; }
+  .show-more:hover { background: var(--primary); color: var(--white); }
+
+  /* ---------- Inspirations ---------- */
+  .inspo { background: var(--cream-bg); height: 670px; margin-top: 117px; overflow: hidden; }
+  .inspo .wrap { height: 100%; display: grid; grid-template-columns: 564px 1fr; padding-top: 44px; }
+  .inspo__text { padding: 179px 0 0 100px; }
+  .inspo__text h2 { font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--gray-1); width: 422px; }
+  .inspo__text p { font-weight: 500; font-size: 16px; line-height: 1.5; color: var(--gray-2); width: 368px; margin-top: 7px; }
+  .inspo__text .btn { margin-top: 25px; padding: 12px 0; width: 176px; text-align: center; font-weight: 600; text-transform: none; }
+  .inspo__slider { position: relative; min-width: 0; }
+  .inspo__track { display: flex; gap: 24px; align-items: flex-start; transition: transform .45s ease; }
+  .slide { position: relative; flex: 0 0 auto; width: 372px; height: 486px; }
+  .slide:first-child { width: 404px; height: 582px; }
+  .slide img.slide__img { width: 100%; height: 100%; object-fit: cover; }
+  .slide__caption { position: absolute; left: 24px; bottom: 24px; width: 217px; height: 130px; padding: 32px 0 0 32px; background: rgba(255,255,255,.72); backdrop-filter: blur(1.5px); }
+  .slide__meta { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 16px; line-height: 1.5; color: var(--gray-2); white-space: nowrap; }
+  .slide__meta img { width: 27px; }
+  .slide__title { font-weight: 600; font-size: 28px; line-height: 1.2; color: var(--gray-1); margin-top: 8px; }
+  .slide__go { position: absolute; left: 241px; bottom: 24px; width: 48px; height: 48px; background: var(--primary); display: grid; place-items: center; border: 0; cursor: pointer; }
+  .slide__go img { width: 24px; height: 24px; }
+  .inspo__next { position: absolute; left: 773px; top: 267px; width: 48px; height: 48px; border: 0; background: none; cursor: pointer; padding: 0; z-index: 2; }
+  .inspo__next img { width: 100%; height: 100%; }
+  .inspo__indicator { position: absolute; left: 428px; top: 526px; width: 120px; height: 27px; }
+  .inspo__slide-wrap { overflow: hidden; margin-right: 0; }
+
+  /* ---------- Share your setup ---------- */
+  .share { padding-top: 0; text-align: center; overflow: hidden; }
+  .share__title { padding-top: 0; margin-top: 0; }
+  .share__title p:first-child { font-weight: 600; font-size: 20px; line-height: 1.5; color: var(--gray-2); }
+  .share__title p:last-child { font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--gray-1); }
+  .share__collage { position: relative; width: var(--page); max-width: none; height: 740px; margin: 21px auto 0; }
+  .share__collage img { position: absolute; object-fit: cover; }
+
+  /* ---------- Footer ---------- */
+  .footer { border-top: 1px solid rgba(0,0,0,.17); height: 505px; margin-top: 50px; }
+  .footer .wrap { height: 100%; }
+  .footer__brand { position: absolute; left: 100px; top: 48px; font-weight: 700; font-size: 24px; color: #000; }
+  .footer__addr { position: absolute; left: 102px; top: 134px; width: 220px; font-size: 16px; color: var(--gray-3); }
+  .footer__col { position: absolute; top: 48px; font-weight: 500; font-size: 16px; }
+  .footer__col h4 { font-weight: 500; font-size: 16px; color: var(--gray-3); margin-bottom: 55px; }
+  .footer__col li { color: #000; margin-bottom: 46px; }
+  .footer__col a:hover { color: var(--primary); }
+  .footer__news { position: absolute; left: 947px; top: 48px; }
+  .footer__news h4 { font-weight: 500; font-size: 16px; color: var(--gray-3); margin-bottom: 55px; }
+  .footer__news form { display: flex; gap: 11px; align-items: flex-end; }
+  .footer__news input { width: 200px; border: 0; border-bottom: 1px solid #000; font: 400 14px "Poppins", sans-serif; padding: 0 0 4px; outline: none; background: none; }
+  .footer__news input::placeholder { color: var(--gray-3); }
+  .footer__news button { font: 500 14px "Poppins", sans-serif; color: #000; background: none; border: 0; border-bottom: 1px solid #000; padding: 0 0 4px; cursor: pointer; }
+  .footer__rule { position: absolute; left: 100px; right: 100px; top: 408px; border-top: 1px solid #d9d9d9; }
+  .footer__copy { position: absolute; left: 102px; top: 435px; font-size: 16px; color: #000; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1280px) {
+    .share__collage { transform-origin: top center; }
+  }
+  @media (max-width: 1200px) {
+    .products__grid { grid-template-columns: repeat(2, 285px); }
+    .range__grid { grid-template-columns: repeat(3, 1fr); padding: 0 24px; }
+    .range__item img { width: 100%; height: auto; aspect-ratio: 381/480; }
+    .hero__card { right: 24px; }
+    .nav { gap: 32px; }
+    .inspo { height: auto; padding-bottom: 60px; }
+    .inspo .wrap { grid-template-columns: 1fr; }
+    .inspo__text { padding: 60px 24px 32px; }
+    .inspo__next, .inspo__indicator { display: none; }
+    .inspo__slide-wrap { padding: 0 24px; overflow-x: auto; }
+    .footer { height: auto; padding: 48px 24px; }
+    .footer .wrap > * { position: static !important; margin-bottom: 24px; }
+    .footer__col h4, .footer__news h4 { margin-bottom: 16px; }
+    .footer__col li { margin-bottom: 12px; }
+    .footer__rule { display: none; }
+    .share__collage { transform: scale(.75); height: 560px; }
+  }
+  @media (max-width: 720px) {
+    .header .wrap { padding: 0 16px; }
+    .nav { display: none; }
+    .actions { gap: 16px; }
+    .hero { height: 560px; }
+    .hero__card { left: 16px; right: 16px; width: auto; top: 90px; height: auto; padding: 32px 24px; }
+    .hero__title { font-size: 36px; line-height: 44px; }
+    .btn { padding: 18px 40px; margin-top: 24px; }
+    .range__grid { grid-template-columns: 1fr; }
+    .products__grid { grid-template-columns: 285px; }
+    .share__collage { transform: scale(.5); height: 380px; margin-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="Furniro">
+      <span class="brand__mark"><img src="assets/logo.png" alt=""></span>
+      <span class="brand__name">Furniro</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#">Home</a>
+      <a href="#products">Shop</a>
+      <a href="#inspirations">About</a>
+      <a href="#footer">Contact</a>
+    </nav>
+    <div class="actions">
+      <a href="#" aria-label="Account"><img src="assets/icon-account.svg" alt=""></a>
+      <a href="#" aria-label="Search"><img src="assets/icon-search.svg" alt=""></a>
+      <a href="#" aria-label="Wishlist"><img src="assets/icon-heart.svg" alt=""></a>
+      <a href="#" aria-label="Cart"><img src="assets/icon-cart.svg" alt=""></a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero__card">
+      <p class="hero__eyebrow">New Arrival</p>
+      <h1 class="hero__title">Discover Our<br>New Collection</h1>
+      <p class="hero__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.</p>
+      <a class="btn" href="#products">Buy Now</a>
+    </div>
+  </div>
+</section>
+
+<section class="range">
+  <h2>Browse The Range</h2>
+  <p class="range__sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <div class="range__grid">
+    <a class="range__item" href="#"><img src="assets/range-dining.png" alt="Dining"><h3>Dining</h3></a>
+    <a class="range__item" href="#"><img src="assets/range-living.png" alt="Living"><h3>Living</h3></a>
+    <a class="range__item" href="#"><img src="assets/range-bedroom.png" alt="Bedroom"><h3>Bedroom</h3></a>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <h2>Our Products</h2>
+  <div class="products__grid" id="productGrid"></div>
+  <a class="show-more" href="#">Show More</a>
+</section>
+
+<section class="inspo" id="inspirations">
+  <div class="wrap">
+    <div class="inspo__text">
+      <h2>50+ Beautiful rooms inspiration</h2>
+      <p>Our designer already made a lot of beautiful prototipe of rooms that inspire you</p>
+      <a class="btn" href="#">Explore More</a>
+    </div>
+    <div class="inspo__slider">
+      <div class="inspo__slide-wrap">
+        <div class="inspo__track" id="inspoTrack">
+          <article class="slide">
+            <img class="slide__img" src="assets/inspo-1.png" alt="Bed Room - Inner Peace">
+            <div class="slide__caption">
+              <div class="slide__meta"><span>01</span><img src="assets/line-short.svg" alt=""><span>Bed Room</span></div>
+              <h3 class="slide__title">Inner Peace</h3>
+            </div>
+            <button class="slide__go" aria-label="View room"><img src="assets/icon-arrow-right.svg" alt=""></button>
+          </article>
+          <article class="slide"><img class="slide__img" src="assets/inspo-2.png" alt="Room inspiration 2"></article>
+          <article class="slide"><img class="slide__img" src="assets/inspo-3.png" alt="Room inspiration 3"></article>
+        </div>
+      </div>
+      <button class="inspo__next" id="inspoNext" aria-label="Next"><img src="assets/btn-next.svg" alt=""></button>
+      <img class="inspo__indicator" src="assets/indicator.svg" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="share">
+  <div class="share__title">
+    <p>Share your setup with</p>
+    <p>#FuniroFurniture</p>
+  </div>
+  <div class="share__collage">
+    <img src="assets/share-1.png" alt="" style="left:-196px;top:0;width:274px;height:382px">
+    <img src="assets/share-2.png" alt="" style="left:94px;top:70px;width:451px;height:312px">
+    <img src="assets/share-3.png" alt="" style="left:561px;top:156px;width:295px;height:392px">
+    <img src="assets/share-4.png" alt="" style="left:201px;top:398px;width:344px;height:242px">
+    <img src="assets/share-5.png" alt="" style="left:872px;top:463px;width:178px;height:242px">
+    <img src="assets/share-6.png" alt="" style="left:1066px;top:463px;width:258px;height:196px">
+    <img src="assets/share-7.png" alt="" style="left:872px;top:99px;width:290px;height:348px">
+    <img src="assets/share-8.png" alt="" style="left:1178px;top:14px;width:425px;height:433px">
+    <img src="assets/share-9.png" alt="" style="left:-196px;top:398px;width:381px;height:323px">
+  </div>
+</section>
+
+<footer class="footer" id="footer">
+  <div class="wrap">
+    <div class="footer__brand">Funiro.</div>
+    <address class="footer__addr" style="font-style:normal">400 University Drive Suite 200 Coral Gables, FL 33134 USA</address>
+    <div class="footer__col" style="left:523px">
+      <h4>Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#inspirations">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer__col" style="left:735px">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Payment Options</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Privacy Policies</a></li>
+      </ul>
+    </div>
+    <div class="footer__news">
+      <h4>Newsletter</h4>
+      <form id="newsletter">
+        <input type="email" placeholder="Enter Your Email Address" aria-label="Email address" required>
+        <button type="submit">SUBSCRIBE</button>
+      </form>
+    </div>
+    <div class="footer__rule"></div>
+    <p class="footer__copy">2023 furino. All rights reverved</p>
+  </div>
+</footer>
+
+<script>
+  const products = [
+    { name: "Syltherine", desc: "Stylish cafe chair", price: "Rp 2.500.000", old: "Rp 3.500.000", img: "p-syltherine.png", badge: "-30%" },
+    { name: "Leviosa", desc: "Stylish cafe chair", price: "Rp 2.500.000", img: "p-leviosa.png" },
+    { name: "Lolito", desc: "Luxury big sofa", price: "Rp 7.000.000", old: "Rp 14.000.000", img: "p-lolito.png", badge: "-50%" },
+    { name: "Respira", desc: "Outdoor bar table and stool", price: "Rp 500.000", img: "p-respira.png", badge: "New" },
+    { name: "Grifo", desc: "Night lamp", price: "Rp 1.500.000", img: "p-grifo.png" },
+    { name: "Muggo", desc: "Small mug", price: "Rp 150.000", img: "p-muggo.png", badge: "New" },
+    { name: "Pingky", desc: "Cute bed set", price: "Rp 7.000.000", old: "Rp 14.000.000", img: "p-pingky.png", badge: "-50%" },
+    { name: "Potty", desc: "Minimalist flower pot", price: "Rp 500.000", img: "p-potty.png", badge: "New" }
+  ];
+
+  const grid = document.getElementById("productGrid");
+  grid.innerHTML = products.map(p => {
+    const isNew = p.badge === "New";
+    const badge = p.badge
+      ? `<div class="badge"><img src="assets/${isNew ? "badge-new" : "badge-discount"}.svg" alt=""><span>${p.badge}</span></div>`
+      : "";
+    return `
+    <a class="card" href="#">
+      <img class="card__img" src="assets/${p.img}" alt="${p.name}">
+      ${badge}
+      <div class="card__body">
+        <h3 class="card__name">${p.name}</h3>
+        <p class="card__desc">${p.desc}</p>
+        <p class="card__price">${p.price}${p.old ? `<s>${p.old}</s>` : ""}</p>
+      </div>
+      <div class="card__overlay">
+        <button class="card__cta" type="button">Add to cart</button>
+        <div class="card__tools">
+          <button type="button"><img src="assets/icon-share.svg" alt="">Share</button>
+          <button type="button"><img src="assets/icon-compare.svg" alt="">Compare</button>
+          <button type="button" data-like><img src="assets/icon-like.svg" alt="">Like</button>
+        </div>
+      </div>
+    </a>`;
+  }).join("");
+
+  grid.addEventListener("click", e => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    e.preventDefault();
+    if (btn.hasAttribute("data-like")) btn.classList.toggle("is-liked");
+  });
+
+  // Inspirations slider
+  const track = document.getElementById("inspoTrack");
+  const slides = track.children;
+  let idx = 0;
+  document.getElementById("inspoNext").addEventListener("click", () => {
+    idx = (idx + 1) % slides.length;
+    const offset = idx === 0 ? 0 : slides[idx].offsetLeft;
+    track.style.transform = `translateX(${-offset}px)`;
+  });
+
+  document.getElementById("newsletter").addEventListener("submit", e => {
+    e.preventDefault();
+    e.target.reset();
+  });
+</script>
+</body>
+</html>
